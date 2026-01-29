@@ -1,7 +1,7 @@
 package com.chauxdevapps.catwalletapp.framework.di
 
 import com.chauxdevapps.catwalletapp.data.source.CatRemoteDataSource
-import com.chauxdevapps.catwalletapp.framework.image.GlideImageManager
+import com.chauxdevapps.catwalletapp.framework.image.CoilImageManager
 import com.chauxdevapps.catwalletapp.framework.image.ImageManager
 import com.chauxdevapps.catwalletapp.framework.request.ApiConstants
 import com.chauxdevapps.catwalletapp.framework.request.CatApi
@@ -23,7 +23,7 @@ abstract class FrameworkModule {
 
     @Binds
     @Singleton
-    abstract fun bindImageManager(glideImageManager: GlideImageManager): ImageManager
+    abstract fun bindImageManager(coilImageManager: CoilImageManager): ImageManager
 
     @Binds
     @Singleton

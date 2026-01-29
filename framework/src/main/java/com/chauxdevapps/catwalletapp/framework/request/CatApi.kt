@@ -9,5 +9,5 @@ interface CatApi {
     suspend fun getCats(
         @Query("limit") limit: Int = ApiConstants.LIMIT_VAL,
         @Query("x-api-key") apiKey: String = ApiConstants.API_KEY
-    ): List<Cat>
+    ): List<CatDto>
 }

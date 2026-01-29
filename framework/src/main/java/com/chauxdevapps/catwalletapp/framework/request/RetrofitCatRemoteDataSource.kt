@@ -8,6 +8,6 @@ class RetrofitCatRemoteDataSource @Inject constructor(
     private val catApi: CatApi
 ) : CatRemoteDataSource {
     override suspend fun getCats(): List<Cat> {
-        return catApi.getCats()
+        return catApi.getCats().toDomain()
     }
 }
