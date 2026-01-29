@@ -2,8 +2,12 @@ package com.chauxdevapps.catwalletapp.framework.request
 
 import com.chauxdevapps.catwalletapp.domain.model.Cat
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface CatApi {
-    @GET("v1/images/search?limit=10")
-    suspend fun getCats(): List<Cat>
+    @GET(ApiConstants.IMAGES_SEARCH)
+    suspend fun getCats(
+        @Query("limit") limit: Int = ApiConstants.LIMIT_VAL,
+        @Query("x-api-key") apiKey: String = ApiConstants.API_KEY
+    ): List<Cat>
 }

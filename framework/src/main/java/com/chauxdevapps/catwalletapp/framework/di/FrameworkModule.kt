@@ -3,6 +3,7 @@ package com.chauxdevapps.catwalletapp.framework.di
 import com.chauxdevapps.catwalletapp.data.source.CatRemoteDataSource
 import com.chauxdevapps.catwalletapp.framework.image.GlideImageManager
 import com.chauxdevapps.catwalletapp.framework.image.ImageManager
+import com.chauxdevapps.catwalletapp.framework.request.ApiConstants
 import com.chauxdevapps.catwalletapp.framework.request.CatApi
 import com.chauxdevapps.catwalletapp.framework.request.RetrofitCatRemoteDataSource
 import dagger.Binds
@@ -44,7 +45,7 @@ abstract class FrameworkModule {
         @Singleton
         fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
             return Retrofit.Builder()
-                .baseUrl("https://api.thecatapi.com/")
+                .baseUrl(ApiConstants.BASE_URL)
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

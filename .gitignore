@@ -1,15 +1,41 @@
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Kotlin / Java
+*.class
+*.pyc
+
+# IDE - IntelliJ / Android Studio
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+*.iws
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/navEditor.xml
+.idea/assetWizardSettings.xml
+
+# Local configuration file (sdk path, etc)
 local.properties
+
+# Log files
+*.log
+
+# Android Studio captures
+captures/
+
+# External native build
+.externalNativeBuild/
+.cxx/
+
+# OS X
+.DS_Store
+
+# Built variants
+*.apk
+*.aar
+*.jar
+!gradle/wrapper/gradle-wrapper.jar
