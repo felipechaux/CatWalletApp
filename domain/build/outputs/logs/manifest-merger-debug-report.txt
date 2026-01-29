@@ -1,0 +1,16 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml:2:13-83
+INJECTED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml:2:13-83
+	package
+		INJECTED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml
+	xmlns:android
+		ADDED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml:2:23-81
+uses-sdk
+INJECTED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml reason: use-sdk injection requested
+INJECTED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml
+INJECTED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml
+	android:targetSdkVersion
+		INJECTED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml
+	android:minSdkVersion
+		INJECTED from /Users/felipechaux/AndroidStudioProjects/CatWalletApp/domain/build/intermediates/tmp/ProcessLibraryManifest/debug/tempAndroidManifest6487773773213200468.xml
