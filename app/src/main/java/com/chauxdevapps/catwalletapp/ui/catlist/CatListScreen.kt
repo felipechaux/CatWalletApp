@@ -6,6 +6,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshBox
@@ -18,6 +19,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.background
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
@@ -25,6 +28,7 @@ import com.chauxdevapps.catwalletapp.R
 import com.chauxdevapps.catwalletapp.domain.model.cat.Cat
 import com.chauxdevapps.catwalletapp.ui.payment.PaymentBottomSheet
 
+import com.chauxdevapps.catwalletapp.ui.components.ErrorScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatListScreen(
@@ -40,7 +44,8 @@ fun CatListScreen(
                     Text(
                         text = stringResource(R.string.app_title),
                         fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.headlineMedium
+                        style = MaterialTheme.typography.headlineLarge,
+                        letterSpacing = (-0.5).sp
                     )
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
@@ -60,31 +65,8 @@ fun CatListScreen(
                 onRefresh = { viewModel.fetchCats() },
                 modifier = Modifier.fillMaxSize()
             ) {
-                if (uiState.isLoading && uiState.cats.isEmpty()) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                }
-
-                uiState.error?.let { error ->
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = error,
-                            color = MaterialTheme.colorScheme.error,
-                            style = MaterialTheme.typography.bodyLarge
-                        )
-                    }
-                }
-
-                if (!uiState.isLoading && uiState.error == null || uiState.cats.isNotEmpty()) {
+                // We show the list if there are cats (even if loading or error)
+                if (uiState.cats.isNotEmpty()) {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp),
@@ -97,6 +79,23 @@ fun CatListScreen(
                             )
                         }
                     }
+                }
+
+                if (uiState.isLoading && uiState.cats.isEmpty()) {
+                    Box(
+                        modifier = Modifier.fillMaxSize(),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        CircularProgressIndicator(
+                            color = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                }
+
+                uiState.error?.let { error ->
+                    ErrorScreen(
+                        onRetry = { viewModel.fetchCats() }
+                    )
                 }
             }
         }
@@ -143,15 +142,31 @@ fun CatItem(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(16.dp),
+                    .background(
+                        androidx.compose.ui.graphics.Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Transparent,
+                                Color.Black.copy(alpha = 0.7f)
+                            ),
+                            startY = 500f
+                        )
+                    )
+            )
+
+            // Cat Name
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp),
                 contentAlignment = Alignment.BottomStart
             ) {
                 Column {
                     Text(
                         text = cat.name,
                         color = Color.White,
-                        style = MaterialTheme.typography.headlineSmall,
+                        style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold,
+                        letterSpacing = 0.sp,
                         modifier = Modifier.padding(bottom = 4.dp)
                     )
                 }

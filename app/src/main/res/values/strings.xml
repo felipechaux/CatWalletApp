@@ -5,6 +5,11 @@
     <string name="app_title">Cat Wallet</string>
     <string name="favorite">Favorite</string>
     
+    <!-- Empty State -->
+    <string name="error_no_cats_title">Oops! Can\'t Load Cats</string>
+    <string name="error_no_cats_description">We couldn\'t fetch any cats right now. Please check your connection and try again.</string>
+    <string name="retry_button">Try Again</string>
+    
     <!-- Payment Bottom Sheet -->
     <string name="unlimited_cats_title">Unlimited Cats Await!</string>
     <string name="unlimited_cats_description">Link a card to unlock unlimited favorites</string>

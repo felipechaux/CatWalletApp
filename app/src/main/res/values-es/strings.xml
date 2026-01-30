@@ -5,6 +5,11 @@
     <string name="app_title">Billetera de Gatos</string>
     <string name="favorite">Favorito</string>
     
+    <!-- Empty State -->
+    <string name="error_no_cats_title">¡Ups! No se Pueden Cargar Gatos</string>
+    <string name="error_no_cats_description">No pudimos obtener ningún gato en este momento. Por favor, verifica tu conexión e intenta nuevamente.</string>
+    <string name="retry_button">Intentar de Nuevo</string>
+    
     <!-- Payment Bottom Sheet -->
     <string name="unlimited_cats_title">¡Gatos Ilimitados te Esperan!</string>
     <string name="unlimited_cats_description">Vincula una tarjeta para desbloquear favoritos ilimitados</string>
