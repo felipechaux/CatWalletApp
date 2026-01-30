@@ -3,6 +3,8 @@ package com.chauxdevapps.catwalletapp.domain.usecase.cat
 import com.chauxdevapps.catwalletapp.domain.model.cat.Cat
 import com.chauxdevapps.catwalletapp.domain.repository.cat.CatRepository
 import com.chauxdevapps.catwalletapp.domain.repository.payment.PaymentRepository
+import com.chauxdevapps.catwalletapp.domain.util.DomainConstants.ERROR_LIMIT_REACHED
+import com.chauxdevapps.catwalletapp.domain.util.DomainConstants.FREE_FAVORITE_LIMIT
 import javax.inject.Inject
 
 class ToggleFavoriteUseCase @Inject constructor(
@@ -16,8 +18,8 @@ class ToggleFavoriteUseCase @Inject constructor(
             val isUnlimitedAccess = paymentRepository.isUnlimitedAccessEnabled()
             if (!isUnlimitedAccess) {
                 val currentFavorites = catRepository.getFavoriteCats()
-                if (currentFavorites.size >= 3) {
-                    return Result.failure(Exception("LIMIT_REACHED"))
+                if (currentFavorites.size >= FREE_FAVORITE_LIMIT) {
+                    return Result.failure(Exception(ERROR_LIMIT_REACHED))
                 }
             }
         }

@@ -8,6 +8,8 @@ import com.chauxdevapps.catwalletapp.domain.usecase.payment.CheckUnlimitedAccess
 import com.chauxdevapps.catwalletapp.domain.usecase.cat.GetCatListUseCase
 import com.chauxdevapps.catwalletapp.domain.usecase.cat.ToggleFavoriteUseCase
 import com.chauxdevapps.catwalletapp.domain.usecase.payment.TokenizePaymentMethodUseCase
+import com.chauxdevapps.catwalletapp.domain.util.DomainConstants.ERROR_LIMIT_REACHED
+import com.chauxdevapps.catwalletapp.domain.util.DomainConstants.ERROR_TOKENIZATION_FAILED
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -69,7 +71,7 @@ class CatListViewModel @Inject constructor(
                 }
             } else {
                 val error = result.exceptionOrNull()
-                if (error?.message == "LIMIT_REACHED") {
+                if (error?.message == ERROR_LIMIT_REACHED) {
                     _uiState.update { it.copy(showLimitReachedDialog = true) }
                 }
             }
@@ -96,7 +98,7 @@ class CatListViewModel @Inject constructor(
                 _uiState.update { 
                     it.copy(
                         isTokenizing = false, 
-                        tokenizationError = "Error tokenizing payment method. Please try again." 
+                        tokenizationError = ERROR_TOKENIZATION_FAILED
                     ) 
                 }
             }
