@@ -1,7 +1,5 @@
 # Cat Wallet App 🐱💳
 
-A modern Android application showcasing Clean Architecture with MVVM pattern, featuring random cat images, favorites management, and payment tokenization for unlimited access.
-
 ## Experiencia de usuario
 
 Este proyecto contiene las siguientes características:
