@@ -3,28 +3,28 @@ package com.chauxdevapps.catwalletapp.ui.catlist
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material.TopAppBar
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.CircularProgressIndicator
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material3.*
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.ui.res.stringResource
 import coil.compose.AsyncImage
-import com.chauxdevapps.catwalletapp.domain.model.Cat
+import com.chauxdevapps.catwalletapp.R
+import com.chauxdevapps.catwalletapp.domain.model.cat.Cat
+import com.chauxdevapps.catwalletapp.ui.payment.PaymentBottomSheet
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CatListScreen(
     viewModel: CatListViewModel
@@ -32,35 +32,20 @@ fun CatListScreen(
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
+        containerColor = MaterialTheme.colorScheme.surface,
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        text = "My App Title",
-                        style = MaterialTheme.typography.titleLarge
+                        text = stringResource(R.string.app_title),
+                        fontWeight = FontWeight.Bold,
+                        style = MaterialTheme.typography.headlineMedium
                     )
                 },
-                navigationIcon = {
-                    IconButton(onClick = { /* Handle navigation icon click */ }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = { /* Handle action icon click */ }) {
-                        Icon(
-                            imageVector = Icons.Filled.Menu,
-                            contentDescription = "Menu",
-                            tint = MaterialTheme.colorScheme.primary
-                        )
-                    }
-                },
-                backgroundColor = MaterialTheme.colorScheme.primaryContainer,
-                contentColor = MaterialTheme.colorScheme.primary,
-                elevation = 0.dp
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.surface,
+                    titleContentColor = MaterialTheme.colorScheme.onSurface
+                )
             )
         }
     ) { paddingValues ->
@@ -70,54 +55,108 @@ fun CatListScreen(
                 .padding(paddingValues)
         ) {
             if (uiState.isLoading) {
-                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                CircularProgressIndicator(
+                    modifier = Modifier.align(Alignment.Center),
+                    color = MaterialTheme.colorScheme.primary
+                )
             }
 
             uiState.error?.let { error ->
                 Text(
                     text = error,
                     color = MaterialTheme.colorScheme.error,
-                    modifier = Modifier.align(Alignment.Center)
+                    modifier = Modifier.align(Alignment.Center),
+                    style = MaterialTheme.typography.bodyLarge
                 )
             }
 
             if (!uiState.isLoading && uiState.error == null) {
                 LazyColumn(
                     modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(16.dp),
-                    verticalArrangement = Arrangement.spacedBy(16.dp)
+                    contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp),
+                    verticalArrangement = Arrangement.spacedBy(20.dp)
                 ) {
-                    items(uiState.cats) { cat ->
-                        CatItem(cat = cat)
+                    items(uiState.cats, key = { it.id }) { cat ->
+                        CatItem(
+                            cat = cat,
+                            onToggleFavorite = { viewModel.toggleFavorite(cat) }
+                        )
                     }
                 }
             }
+        }
+
+        if (uiState.showLimitReachedDialog) {
+            PaymentBottomSheet(
+                onDismiss = { viewModel.dismissLimitDialog() },
+                onTokenize = { cardNumber, cvv, expiryDate ->
+                    viewModel.tokenizePaymentMethod(cardNumber, cvv, expiryDate)
+                },
+                isTokenizing = uiState.isTokenizing,
+                error = uiState.tokenizationError
+            )
         }
     }
 }
 
 @Composable
-fun CatItem(cat: Cat) {
+fun CatItem(
+    cat: Cat,
+    onToggleFavorite: () -> Unit
+) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(200.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp)
+            .height(280.dp),
+        shape = MaterialTheme.shapes.extraLarge,
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f)
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp)
     ) {
-        Column {
+        Box(modifier = Modifier.fillMaxSize()) {
             AsyncImage(
                 model = cat.imageUrl,
                 contentDescription = cat.name,
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f),
+                    .fillMaxSize()
+                    .clip(MaterialTheme.shapes.extraLarge),
                 contentScale = ContentScale.Crop
             )
-            Text(
-                text = cat.name,
-                modifier = Modifier.padding(8.dp),
-                style = MaterialTheme.typography.titleMedium
-            )
+
+            // Gradient Overlay for text readability
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(16.dp),
+                contentAlignment = Alignment.BottomStart
+            ) {
+                Column {
+                    Text(
+                        text = cat.name,
+                        color = Color.White,
+                        style = MaterialTheme.typography.headlineSmall,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(bottom = 4.dp)
+                    )
+                }
+            }
+
+            // Favorite Button Overlay
+            IconButton(
+                onClick = onToggleFavorite,
+                modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .padding(12.dp)
+                    .clip(MaterialTheme.shapes.medium)
+            ) {
+                Icon(
+                    imageVector = if (cat.isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                    contentDescription = stringResource(R.string.favorite),
+                    tint = if (cat.isFavorite) Color.Red else Color.White,
+                    modifier = Modifier.size(32.dp)
+                )
+            }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.chauxdevapps.catwalletapp.framework.request
+package com.chauxdevapps.catwalletapp.framework.request.cat
 
 import com.google.gson.annotations.SerializedName
 

@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">CatWalletApp</string>
+    
+    <!-- Cat List Screen -->
+    <string name="app_title">Billetera de Gatos</string>
+    <string name="favorite">Favorito</string>
+    
+    <!-- Payment Bottom Sheet -->
+    <string name="unlimited_cats_title">¡Gatos Ilimitados te Esperan!</string>
+    <string name="unlimited_cats_description">Vincula una tarjeta para desbloquear favoritos ilimitados</string>
+    <string name="card_number">Número de Tarjeta</string>
+    <string name="expiry_date">MM/AA</string>
+    <string name="cvv">CVV</string>
+    <string name="tokenize_unlock">Tokenizar y Desbloquear</string>
+</resources>

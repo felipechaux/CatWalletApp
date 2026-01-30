@@ -1,6 +1,6 @@
-package com.chauxdevapps.catwalletapp.framework.request
+package com.chauxdevapps.catwalletapp.framework.request.cat
 
-import com.chauxdevapps.catwalletapp.domain.model.Cat
+import com.chauxdevapps.catwalletapp.domain.model.cat.Cat
 
 fun CatDto.toDomain(): Cat {
     return Cat(

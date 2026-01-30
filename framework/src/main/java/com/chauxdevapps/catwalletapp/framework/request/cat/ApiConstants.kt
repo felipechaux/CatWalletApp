@@ -1,4 +1,4 @@
-package com.chauxdevapps.catwalletapp.framework.request
+package com.chauxdevapps.catwalletapp.framework.request.cat
 
 object ApiConstants {
     const val BASE_URL = "https://api.thecatapi.com/"

@@ -1,11 +1,11 @@
 package com.chauxdevapps.catwalletapp.framework.di
 
-import com.chauxdevapps.catwalletapp.data.source.CatRemoteDataSource
+import com.chauxdevapps.catwalletapp.data.source.cat.CatRemoteDataSource
 import com.chauxdevapps.catwalletapp.framework.image.CoilImageManager
 import com.chauxdevapps.catwalletapp.framework.image.ImageManager
-import com.chauxdevapps.catwalletapp.framework.request.ApiConstants
-import com.chauxdevapps.catwalletapp.framework.request.CatApi
-import com.chauxdevapps.catwalletapp.framework.request.RetrofitCatRemoteDataSource
+import com.chauxdevapps.catwalletapp.framework.request.cat.ApiConstants
+import com.chauxdevapps.catwalletapp.framework.request.cat.CatApi
+import com.chauxdevapps.catwalletapp.framework.request.cat.RetrofitCatRemoteDataSource
 import dagger.Binds
 import dagger.Module
 import dagger.Provides

@@ -1,7 +1,7 @@
 package com.chauxdevapps.catwalletapp.data.di
 
-import com.chauxdevapps.catwalletapp.data.repository.CatRepositoryImpl
-import com.chauxdevapps.catwalletapp.domain.repository.CatRepository
+import com.chauxdevapps.catwalletapp.data.repository.cat.CatRepositoryImpl
+import com.chauxdevapps.catwalletapp.domain.repository.cat.CatRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn

@@ -51,4 +51,13 @@ dependencies {
 
     // Coil
     implementation(libs.coil.base)
+
+    // Room
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    ksp(libs.room.compiler)
+
+    // DataStore & Security
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.security.crypto)
 }

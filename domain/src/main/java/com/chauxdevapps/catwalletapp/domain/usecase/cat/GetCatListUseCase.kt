@@ -1,8 +1,8 @@
-package com.chauxdevapps.catwalletapp.domain.usecase
+package com.chauxdevapps.catwalletapp.domain.usecase.cat
 
-import com.chauxdevapps.catwalletapp.domain.model.Cat
 import com.chauxdevapps.catwalletapp.domain.model.Resource
-import com.chauxdevapps.catwalletapp.domain.repository.CatRepository
+import com.chauxdevapps.catwalletapp.domain.model.cat.Cat
+import com.chauxdevapps.catwalletapp.domain.repository.cat.CatRepository
 import javax.inject.Inject
 
 class GetCatListUseCase @Inject constructor(
