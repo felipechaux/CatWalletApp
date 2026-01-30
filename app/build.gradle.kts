@@ -61,13 +61,24 @@ dependencies {
     
     // Coil
     implementation(libs.coil.compose)
+    
+    // Splash Screen
+    implementation(libs.androidx.core.splashscreen)
+    
+    // Lottie Animation
+    implementation(libs.lottie.compose)
 
     // Modules
     implementation(project(":domain"))
     implementation(project(":data"))
     implementation(project(":framework"))
 
+    // Testing
     testImplementation(libs.junit)
+    testImplementation(libs.mockk)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

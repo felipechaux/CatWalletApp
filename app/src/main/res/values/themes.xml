@@ -2,4 +2,19 @@
 <resources>
 
     <style name="Theme.CatWalletApp" parent="android:Theme.Material.Light.NoActionBar" />
+    
+    <!-- Splash Screen Theme -->
+    <style name="Theme.App.Starting" parent="Theme.SplashScreen">
+        <!-- Set splash screen background color -->
+        <item name="windowSplashScreenBackground">@color/splash_background</item>
+        
+        <!-- Set the splash screen icon -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/cat_splash_icon</item>
+        
+        <!-- Icon animation duration -->
+        <item name="windowSplashScreenAnimationDuration">1000</item>
+        
+        <!-- Post-splash screen theme -->
+        <item name="postSplashScreenTheme">@style/Theme.CatWalletApp</item>
+    </style>
 </resources>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Legacy colors -->
     <color name="purple_200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
@@ -7,4 +8,13 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    
+    <!-- App Theme Colors - Purple-Pink Gradient -->
+    <color name="splash_background">#FFB298DC</color>
+    <color name="purple_primary">#FF9C7FCC</color>
+    <color name="purple_light">#FFCAB8E9</color>
+    <color name="pink_accent">#FFF3A3C7</color>
+    <color name="pink_light">#FFFFD4E5</color>
+    <color name="surface_gradient_start">#FFF8F5FF</color>
+    <color name="surface_gradient_end">#FFFFF5FB</color>
 </resources>
