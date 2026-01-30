@@ -9,5 +9,6 @@ data class CatListUiState(
     val showLimitReachedDialog: Boolean = false,
     val isUnlimitedAccess: Boolean = false,
     val isTokenizing: Boolean = false,
-    val tokenizationError: String? = null
+    val tokenizationError: String? = null,
+    val showCelebration: Boolean = false
 )

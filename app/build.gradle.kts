@@ -68,6 +68,9 @@ dependencies {
     // Lottie Animation
     implementation(libs.lottie.compose)
 
+    // Konfetti
+    implementation(libs.konfetti.compose)
+
     // Modules
     implementation(project(":domain"))
     implementation(project(":data"))

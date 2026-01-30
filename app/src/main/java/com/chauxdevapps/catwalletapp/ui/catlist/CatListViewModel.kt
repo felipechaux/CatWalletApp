@@ -91,7 +91,8 @@ class CatListViewModel @Inject constructor(
                     it.copy(
                         isTokenizing = false, 
                         isUnlimitedAccess = true, 
-                        showLimitReachedDialog = false 
+                        showLimitReachedDialog = false,
+                        showCelebration = true
                     ) 
                 }
             } else {
@@ -103,5 +104,9 @@ class CatListViewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun onCelebrationShown() {
+        _uiState.update { it.copy(showCelebration = false) }
     }
 }

@@ -36,78 +36,87 @@ fun CatListScreen(
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    Scaffold(
-        containerColor = MaterialTheme.colorScheme.surface,
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-                    Text(
-                        text = stringResource(R.string.app_title),
-                        fontWeight = FontWeight.Bold,
-                        style = MaterialTheme.typography.headlineLarge,
-                        letterSpacing = (-0.5).sp
+    Box(modifier = Modifier.fillMaxSize()) {
+        Scaffold(
+            containerColor = MaterialTheme.colorScheme.surface,
+            topBar = {
+                CenterAlignedTopAppBar(
+                    title = {
+                        Text(
+                            text = stringResource(R.string.app_title),
+                            fontWeight = FontWeight.Bold,
+                            style = MaterialTheme.typography.headlineLarge,
+                            letterSpacing = (-0.5).sp
+                        )
+                    },
+                    colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                        containerColor = MaterialTheme.colorScheme.surface,
+                        titleContentColor = MaterialTheme.colorScheme.onSurface
                     )
-                },
-                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.surface,
-                    titleContentColor = MaterialTheme.colorScheme.onSurface
                 )
-            )
-        }
-    ) { paddingValues ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues)
-        ) {
-            PullToRefreshBox(
-                isRefreshing = uiState.isLoading,
-                onRefresh = { viewModel.fetchCats() },
-                modifier = Modifier.fillMaxSize()
+            }
+        ) { paddingValues ->
+            Box(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(paddingValues)
             ) {
-                // We show the list if there are cats (even if loading or error)
-                if (uiState.cats.isNotEmpty()) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp),
-                        verticalArrangement = Arrangement.spacedBy(20.dp)
-                    ) {
-                        items(uiState.cats, key = { it.id }) { cat ->
-                            CatItem(
-                                cat = cat,
-                                onToggleFavorite = { viewModel.toggleFavorite(cat) }
+                PullToRefreshBox(
+                    isRefreshing = uiState.isLoading,
+                    onRefresh = { viewModel.fetchCats() },
+                    modifier = Modifier.fillMaxSize()
+                ) {
+                    // We show the list if there are cats (even if loading or error)
+                    if (uiState.cats.isNotEmpty()) {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize(),
+                            contentPadding = PaddingValues(horizontal = 20.dp, vertical = 16.dp),
+                            verticalArrangement = Arrangement.spacedBy(20.dp)
+                        ) {
+                            items(uiState.cats, key = { it.id }) { cat ->
+                                CatItem(
+                                    cat = cat,
+                                    onToggleFavorite = { viewModel.toggleFavorite(cat) }
+                                )
+                            }
+                        }
+                    }
+
+                    if (uiState.isLoading && uiState.cats.isEmpty()) {
+                        Box(
+                            modifier = Modifier.fillMaxSize(),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            CircularProgressIndicator(
+                                color = MaterialTheme.colorScheme.primary
                             )
                         }
                     }
-                }
 
-                if (uiState.isLoading && uiState.cats.isEmpty()) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        CircularProgressIndicator(
-                            color = MaterialTheme.colorScheme.primary
+                    uiState.error?.let { error ->
+                        ErrorScreen(
+                            onRetry = { viewModel.fetchCats() }
                         )
                     }
                 }
+            }
 
-                uiState.error?.let { error ->
-                    ErrorScreen(
-                        onRetry = { viewModel.fetchCats() }
-                    )
-                }
+            if (uiState.showLimitReachedDialog) {
+                PaymentBottomSheet(
+                    onDismiss = { viewModel.dismissLimitDialog() },
+                    onTokenize = { cardNumber, cvv, expiryDate ->
+                        viewModel.tokenizePaymentMethod(cardNumber, cvv, expiryDate)
+                    },
+                    isTokenizing = uiState.isTokenizing,
+                    error = uiState.tokenizationError
+                )
             }
         }
 
-        if (uiState.showLimitReachedDialog) {
-            PaymentBottomSheet(
-                onDismiss = { viewModel.dismissLimitDialog() },
-                onTokenize = { cardNumber, cvv, expiryDate ->
-                    viewModel.tokenizePaymentMethod(cardNumber, cvv, expiryDate)
-                },
-                isTokenizing = uiState.isTokenizing,
-                error = uiState.tokenizationError
+        if (uiState.showCelebration) {
+            com.chauxdevapps.catwalletapp.ui.components.ConfettiComponent(
+                modifier = Modifier.fillMaxSize(),
+                onFinished = { viewModel.onCelebrationShown() }
             )
         }
     }
