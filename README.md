@@ -10,6 +10,7 @@ Este proyecto contiene las siguientes características:
 * **Pantalla principal** - Lista de gatos aleatorios con imágenes de The Cat API
 * **Sistema de favoritos** - Gestión de gatos favoritos (límite de 3 gratis)
 * **Pull-to-Refresh** - Actualización de la lista deslizando hacia abajo
+* **Manejo de Errores** - Pantalla de estado vacío ("Empty State") amigable cuando falla la carga
 * **Tokenización de pago** - Desbloqueo de favoritos ilimitados mediante tokenización
 * **Multi-idioma** - Soporte para Español e Inglés
 * **Tema personalizado** - Diseño purple-pink gradient en toda la aplicación
@@ -19,6 +20,7 @@ Este proyecto contiene las siguientes características:
 <p align="center">
   <img width="270" height="555" src="screenshots/screenshot_splash.png" alt="Splash Screen">
   <img width="270" height="555" src="screenshots/screenshot_cat_list.png" alt="Lista de Gatos">
+  <img width="270" height="555" src="screenshots/screenshot_empty_state.png" alt="Estado de Error">
   <img width="270" height="555" src="screenshots/screenshot_payment.png" alt="Tokenización de Pago">
 </p>
 
@@ -316,6 +318,7 @@ CatWalletApp/
 - Pull-to-refresh para actualizar
 - Visualización en cards con diseño moderno
 - Botón de favoritos en cada card
+- **Estado de Error**: Diseño amigable con animación y botón de reintento cuando falla la conexión
 
 ### 3. Sistema de Favoritos
 - Límite de 3 favoritos para usuarios gratuitos
